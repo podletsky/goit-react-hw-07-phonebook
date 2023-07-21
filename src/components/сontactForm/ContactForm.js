@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import styles from '../contactList/ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selestSelectors } from '../../redux/selectors/selectors.js';
-import { addContact } from '../../redux/operation/operation';
+import { addContacts } from '../../redux/contactsSlice/conactsSlice';
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -11,11 +11,12 @@ const ContactForm = () => {
   const contacts = useSelector(selestSelectors);
   const dispatch = useDispatch();
   const handleNameChange = event => {
+    console.log(contacts);
     setName(event.target.value);
   };
-  const handleAddContact = contact => {
+  const handleAddContact = contacts => {
     try {
-      dispatch(addContact(contact));
+      dispatch(addContacts(contacts));
     } catch (error) {
       const errorMessage = error.toString();
       console.log(errorMessage);
@@ -41,7 +42,7 @@ const ContactForm = () => {
     if (isDuplicateName) {
       alert(`Контакт з ім'ям ${name} вже існує!`);
     } else {
-      dispatch(addContact(newContact));
+      dispatch(addContacts(newContact));
       setName('');
       setNumber('');
     }

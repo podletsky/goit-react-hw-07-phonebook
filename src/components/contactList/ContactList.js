@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  fetchContacts,
-  // addContact,
-  deleteContact,
-} from '../../redux/contactsSlice/conactsSlice';
+import { fetchContacts, deleteContacts } from '../../redux/operation/operation';
 import {
   selestFilter,
   selestSelectors,
@@ -17,30 +13,23 @@ const ContactList = () => {
   const filter = useSelector(selestFilter);
   const isLoading = useSelector(selestLoading);
   const dispatch = useDispatch();
-
+  console.log(contacts);
+  console.log(filter);
+  console.log(isLoading);
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
   const handleDelete = id => {
-    dispatch(deleteContact(id));
+    dispatch(deleteContacts(id));
   };
-
-  // const handleAddContact = async () => {
-  //   const newContactData = {};
-  //   try {
-  //     await dispatch(addContact(newContactData));
-  //   } catch (error) {}
-  // };
 
   const getVisibleContacts = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
-
   const visibleContacts = getVisibleContacts();
-
   return (
     <div>
       {isLoading ? (
