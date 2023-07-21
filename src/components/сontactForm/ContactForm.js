@@ -11,7 +11,6 @@ const ContactForm = () => {
   const contacts = useSelector(selestSelectors);
   const dispatch = useDispatch();
   const handleNameChange = event => {
-    console.log(contacts);
     setName(event.target.value);
   };
   const handleAddContact = contacts => {
