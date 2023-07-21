@@ -4,23 +4,18 @@ import styles from '../contactList/ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selestSelectors } from '../../redux/selectors/selectors.js';
 import { addContacts } from '../../redux/contactsSlice/conactsSlice';
+
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const contacts = useSelector(selestSelectors);
   const dispatch = useDispatch();
+
   const handleNameChange = event => {
     setName(event.target.value);
   };
-  const handleAddContact = contacts => {
-    try {
-      dispatch(addContacts(contacts));
-    } catch (error) {
-      const errorMessage = error.toString();
-      console.log(errorMessage);
-    }
-  };
+
   const handleNumberChange = event => {
     setNumber(event.target.value);
   };
@@ -41,7 +36,12 @@ const ContactForm = () => {
     if (isDuplicateName) {
       alert(`Контакт з ім'ям ${name} вже існує!`);
     } else {
-      dispatch(addContacts(newContact));
+      dispatch(
+        addContacts({
+          name: name,
+          number: number,
+        })
+      );
       setName('');
       setNumber('');
     }
@@ -67,11 +67,7 @@ const ContactForm = () => {
         placeholder="Phone Number"
         required
       />
-      <button
-        className={styles.buttonForm}
-        type="submit"
-        onInput={handleAddContact}
-      >
+      <button className={styles.buttonForm} type="submit">
         Add Contact
       </button>
     </form>

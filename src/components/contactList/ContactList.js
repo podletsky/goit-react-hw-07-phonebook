@@ -6,13 +6,16 @@ import {
   selestSelectors,
   selestLoading,
 } from '../../redux/selectors/selectors';
-// import styles from '../contactList/ContactList.module.css';
+import styles from '../contactList/ContactList.module.css';
+import { Button } from 'react-bootstrap';
+import { PacmanLoader } from 'react-spinners';
 
 const ContactList = () => {
   const contacts = useSelector(selestSelectors);
   const filter = useSelector(selestFilter);
   const isLoading = useSelector(selestLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -27,19 +30,35 @@ const ContactList = () => {
     );
   };
   const visibleContacts = getVisibleContacts();
+
   return (
     <div>
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="sr-only">
+          <PacmanLoader size={15} color="#3669" />
+        </div>
       ) : (
-        <ul>
+        <div className={styles.list}>
           {visibleContacts.map(contact => (
-            <li key={contact.id}>
-              {contact.name} - {contact.phone}
-              <button onClick={() => handleDelete(contact.id)}>Delete</button>
-            </li>
+            <div key={contact.id}>
+              <div className={styles.item}>
+                <p className={styles.text}>
+                  {contact.name}: {contact.number}
+                </p>
+                <div>
+                  <Button
+                    className={styles.button}
+                    variant="danger"
+                    type="button"
+                    onClick={() => handleDelete(contact.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
