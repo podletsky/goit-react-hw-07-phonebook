@@ -4,7 +4,7 @@ import styles from '../contactList/ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selestSelectors } from '../../redux/selectors/selectors.js';
 import { addContacts } from '../../redux/contactsSlice/conactsSlice';
-
+import Notiflix from 'notiflix';
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -27,7 +27,7 @@ const ContactForm = () => {
     );
 
     if (isDuplicateName) {
-      alert(`Контакт з ім'ям ${name} вже існує!`);
+      Notiflix.Notify.info('Sorry, a contact with that name already exists!');
     } else {
       dispatch(
         addContacts({
@@ -35,6 +35,7 @@ const ContactForm = () => {
           number: number,
         })
       );
+      Notiflix.Notify.success('Super,a contact added successfully');
       setName('');
       setNumber('');
     }

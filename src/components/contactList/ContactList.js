@@ -12,7 +12,7 @@ import {
 import styles from '../contactList/ContactList.module.css';
 import { Button } from 'react-bootstrap';
 import { PacmanLoader } from 'react-spinners';
-
+import Notiflix from 'notiflix';
 const ContactList = () => {
   const contacts = useSelector(selestSelectors);
   const filter = useSelector(selestFilter);
@@ -24,6 +24,7 @@ const ContactList = () => {
   }, [dispatch]);
 
   const handleDelete = id => {
+    Notiflix.Notify.warning('Contact deleted');
     dispatch(deleteContacts(id));
   };
 
