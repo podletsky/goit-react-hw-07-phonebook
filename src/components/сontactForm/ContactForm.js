@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { nanoid } from 'nanoid';
+
 import styles from '../contactList/ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selestSelectors } from '../../redux/selectors/selectors.js';
@@ -22,13 +22,6 @@ const ContactForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    // const newContact = {
-    //   id: nanoid(),
-    //   name,
-    //   number,
-    // };
-
     const isDuplicateName = contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
